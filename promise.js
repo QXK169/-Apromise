@@ -88,20 +88,20 @@ class APromise {
     }
     // all 方法(获取所有的promise, 执行then, 把结果放在数组,一起返回)
     static all(promiseArr) {
-        let arr = [];
-        let i = [];
-        function processData(index, data) {
-            arr[index] = data;
-            i++;
-            if (i === promiseArr.length) {
-                resolve(arr);
-            }
-        }
         return new APromise((resolve, reject) => {
-            for (let i = 0, length = promiseArr.length; i < length; i++) {
-                promiseArr[i].then(data => {
+            let arr = [];
+            let i = 0;
+            function processData(index, data) {
+                arr[index] = data;
+                if (++i == promiseArr.length) {
+                    resolve(arr);
+                }
+            }
+            for (let i = 0; i < promiseArr.length; i++) {
+                APromise.resolve(promiseArr[i]).then(data => {
                     processData(i, data);
                 }, reject);
+
             }
         })
     }

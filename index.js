@@ -1,12 +1,16 @@
 const Promise = require('./promise');
 
-function add() {
-    let i = 1;
-    i++;
-    return new Promise((resolve, reject) => {
-        resolve(i);
-    })
+var promise1 = Promise.resolve(3);
+var promise2 = 42;
+var promise3 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 100, 'foo');
+});
+try {
+    Promise.all([promise1, promise2, promise3]).then(function (values) {
+ 
+    });
+} catch (err) {
+    console.log(err,1);
 }
-add().then(value => {
-    console.log(value);
-})
+
+
