@@ -7,7 +7,7 @@ var promise3 = new Promise(function (resolve, reject) {
 });
 try {
     Promise.all([promise1, promise2, promise3]).then(function (values) {
- 
+        console.log(values);
     });
 } catch (err) {
     console.log(err,1);

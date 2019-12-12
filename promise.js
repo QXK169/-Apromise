@@ -28,6 +28,9 @@ function resolvePromise(promise, x, resolve, reject) {
                     reject(err);
                 })
             } else {
+                // 第二次修改
+                if (called) return;
+                called = true;
                 resolve(x);
             }
         } catch (err) {
@@ -98,10 +101,10 @@ class APromise {
                 }
             }
             for (let i = 0; i < promiseArr.length; i++) {
-                APromise.resolve(promiseArr[i]).then(data => {
+                let promiseItem = typeof promiseArr[i] === 'object' ? promiseArr[i] : APromise.resolve(promiseArr[i]);
+                promiseItem.then(data => {
                     processData(i, data);
                 }, reject);
-
             }
         })
     }
