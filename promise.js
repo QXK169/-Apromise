@@ -111,7 +111,8 @@ class APromise {
     static race(promiseArr) {
         return new APromise((resolve, reject) => {
             for (let i = 0, length = promiseArr.length; i < length; i++) {
-                promiseArr[i].then(resolve, reject);
+                let promiseItem = typeof promiseArr[i] === 'object' ? promiseArr[i] : APromise.resolve(promiseArr[i]);
+                promiseItem.then(resolve, reject);
             }
         })
     }
@@ -187,6 +188,5 @@ class APromise {
         return promise2;
     }
 }
-
 
 module.exports = APromise
